@@ -20,6 +20,14 @@
 
 4 > and type this command: chmod +x BrtForTe.py
 
+- Note: if your not install mechanize library 
+
+- you need to install mechanize library
+
+Using this command: pip install mechanize
+
+
+
 - download complete !
 
 - To run tool
