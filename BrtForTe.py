@@ -2,7 +2,7 @@
 
 ###############################################################[+>]: Cecking all tool need :[<+]#######################################################
 try:
-   import optparse,socket,os,time,sys,subprocess,cookielib,random
+   import optparse,socket,os,time,sys,subprocess,cookielib,random,hashlib
    import datetime,md5
    import threading
    from ftplib import FTP
@@ -103,14 +103,14 @@ def errorfile(x):
 #-------------------------------------Tool version------------------------------------#
 ver = cor[1]+"[*]:"+cor[5]+"BrtForTe Version:"+cor[4]+" ["+cor[3]+"1.2"+cor[4]+"]"    #
 #-------------------------------------------------------------------------------------#
-
+ve = "1.2"
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Make Tool Options @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 defaultbanner = colors + """________       _______________            ________      
 ___  __ )________  /___  ____/_______________  __/____  
 __  __  |_  ___/  __/_  /_   _  __ \_  ___/_  /  _  _ \ 
 _  /_/ /_  /   / /_ _  __/   / /_/ /  /   _  /   /  __/ 
 /_____/ /_/    \__/ /_/      \____//_/    /_/    \___/
-						     V"""+cor[5]+"["+cor[4]+"1.2"+cor[5]+"]"
+						     V"""+cor[5]+"["+cor[4]+ve+cor[5]+"]"
 parse = optparse.OptionParser(colors + defaultbanner+ """\nUsage: python ./BrtForTe.py [options]
 
 OPTIONS:
@@ -129,12 +129,13 @@ OPTIONS:
 ---------------
 [2]:SERVER:
 	   -S <serverIP> -U <Username> -D <Wordlist>     ::> This Option For Brute Force Attack On [ SSH SERVER ]
-
 	   -f <serverIP> -E <Username> -K <Wordlist>     ::> This Option For Brute Force Attack On [ FTP SERVER ]
 ---------------
 [3]:HASH:
-	   -X <MD5 HASH> -J <Wordlist>     ::> This Option For Brute Force Attack On[ MD5 HASH]
-
+	   -M <MD5 HASH> -m <Wordlist>     ::> This Option For Brute Force Attack On[ MD5 HASH]
+	   -Z <SHA1 HASH> -z <Wordlist>    ::> This Option For Brute Force Attack On[ SHA1 HASH]
+	   -Q <SHA224 HASH> -q <Wordlist>  ::> This Option For Brute Force Attack On[ SHA224 HASH]
+	   -X <SHA256 HASH> -x <Wordlist>  ::> This Option For Brute Force Attack On[ SHA256 HASH]
 +-----------------------------------------+
 -u --update    ::> update BrtForTe Tool.
 -e --examples  ::> Show Tool Examples.
@@ -172,17 +173,25 @@ def Main():
 	  grServer.add_option("-f","--FTserver",dest="ftpT",type="string")
 	  grServer.add_option("-E","--FTuser",dest="ftpU",type="string")
 	  grServer.add_option("-K","--FTwordlist",dest="ftpW",type="string")
-#TELNET SERVER:
-	  grServer.add_option("-N","--TEserver",dest="telnetT",type="string")
-	  grServer.add_option("-M","--TEuser",dest="telnetU",type="string")
-	  grServer.add_option("-O","--TEwordlist",dest="telnetW",type="string")
+
+
 
 ###################################### Hash Brute Force Options ######################################
 	  grHash = optparse.OptionGroup(parse,"\nHASH OPTIONS",
 					     "Brute Force Attack On Hash")
 #MD5 HASH:
-	  grHash.add_option("-X","--MD5HASH",dest="md5T",type="string")
-	  grHash.add_option("-J","--MDwordlist",dest="md5W",type="string")
+	  grHash.add_option("-M","--MD5HASH",dest="md5T",type="string")
+	  grHash.add_option("-m","--MD5wordlist",dest="md5W",type="string")
+#SHA1 HASH:
+	  grHash.add_option("-Z","--SHA1HASH",dest="sh1T",type="string")
+	  grHash.add_option("-z","--SHA1wordlist",dest="sh1W",type="string")
+#SHA224 HASH:
+	  grHash.add_option("-Q","--SHA224HASH",dest="sh224T",type="string")
+	  grHash.add_option("-q","--SHA224wordlist",dest="sh224W",type="string")
+#SHA256 HASH:
+	  grHash.add_option("-X","--SHA256HASH",dest="sh256T",type="string")
+	  grHash.add_option("-x","--SHA256wordlist",dest="sh256W",type="string")
+
 
 ###################################### Other Options You Can Use ######################################
 
@@ -816,7 +825,7 @@ def Main():
 				print(cor[3] + '[!]:Trying Password[%s] : '%(rs) +cor[0]+ str(passwd) + "\n")
 				rs +=1
 				if pass_in == filemd5:
-					print(cor[1]+"[*]:"+cor[5]+"MD5 CRACK!: Password Is: "+cor[1]+"==>"+cor[4]+str(passwd))
+					print(cor[1]+"\n[*]:"+cor[5]+"MD5 CRACK!: Password Is: "+cor[1]+"==> "+cor[4]+str(passwd))
 					break
 		   else:
 			passnotfound(wl)
@@ -826,6 +835,129 @@ def Main():
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ########################################################### END MD5 HASH FUNCTION #####################################################################
+
+
+##############################################################(2)SHA1 HASH FUNCTION ###################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	  elif options.sh1T !=None and options.sh1W !=None:
+		pass_in = options.sh1T
+		wl = options.sh1W
+		if len(pass_in) !=40:
+				print(cor[3]+"\n[!]:"+cor[5]+"Please Input Just"+cor[4]+" [SHA1 HASH!]")
+				exit()
+		try:
+		   pwfile = open(wl, "r")
+		except:
+		      errorfile(wl)
+		try:
+		   banner()
+	           time.sleep(1.5)
+		   print(colors + "\n[+]:=================> CONFIG <=================:[+]\n"+cor[5])
+		   print("[#]:Time         : [ "+str(timenow)+" ]")
+		   print("[+]:SHA1 HASH    : [ "+str(pass_in)+" ]")
+		   print("[+]:Wordlist     : [ "+str(wl)+" ]")
+		   print(cor[1]+"\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		   time.sleep(1.5)
+		   print(cor[4] +"\n[$]"+cor[2]+" <<<<<<<<<"+cor[4]+" Brute Force Attack Start"+cor[2]+" >>>>>>>>>"+cor[4]+" [$]\n")
+		   rs = 1
+		   for passwd in pwfile:
+				fileSha1 = hashlib.sha1(passwd.strip()).hexdigest()
+				print(cor[3] + '[!]:Trying Password[%s] : '%(rs) +cor[0]+ str(passwd) + "\n")
+				rs +=1
+				if pass_in == fileSha1:
+					print(cor[1]+"\n[*]:"+cor[5]+"SHA1 CRACK!: Password Is: "+cor[1]+"==> "+cor[4]+str(passwd))
+					break
+		   else:
+			passnotfound(wl)
+
+	        except KeyboardInterrupt:
+				      exceptkey()
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+########################################################### END SHA1 HASH FUNCTION ####################################################################
+
+
+##############################################################(3)SHA224 HASH FUNCTION #################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	  elif options.sh224T !=None and options.sh224W !=None:
+		pass_in = options.sh224T
+		wl = options.sh224W
+		if len(pass_in) !=56:
+				print(cor[3]+"\n[!]:"+cor[5]+"Please Input Just"+cor[4]+" [SHA224 HASH!]")
+				exit()
+		try:
+		   pwfile = open(wl, "r")
+		except:
+		      errorfile(wl)
+		try:
+		   banner()
+	           time.sleep(1.5)
+		   print(colors + "\n[+]:=================> CONFIG <=================:[+]\n"+cor[5])
+		   print("[#]:Time         : [ "+str(timenow)+" ]")
+		   print("[+]:SHA224 HASH  : [ "+str(pass_in)+" ]")
+		   print("[+]:Wordlist     : [ "+str(wl)+" ]")
+		   print(cor[1]+"\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		   time.sleep(1.5)
+		   print(cor[4] +"\n[$]"+cor[2]+" <<<<<<<<<"+cor[4]+" Brute Force Attack Start"+cor[2]+" >>>>>>>>>"+cor[4]+" [$]\n")
+		   rs = 1
+		   for passwd in pwfile:
+				fileSha224 = hashlib.sha224(passwd.strip()).hexdigest()
+				print(cor[3] + '[!]:Trying Password[%s] : '%(rs) +cor[0]+ str(passwd) + "\n")
+				rs +=1
+				if pass_in == fileSha224:
+					print(cor[1]+"\n[*]:"+cor[5]+"SHA224 CRACK!: Password Is: "+cor[1]+"==> "+cor[4]+str(passwd))
+					break
+		   else:
+			passnotfound(wl)
+
+	        except KeyboardInterrupt:
+				      exceptkey()
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+########################################################### END SHA224 HASH FUNCTION ##################################################################
+
+##############################################################(4)SHA256 HASH FUNCTION #################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	  elif options.sh256T !=None and options.sh256W !=None:
+		pass_in = options.sh256T
+		wl = options.sh256W
+		if len(pass_in) !=64:
+				print(cor[3]+"\n[!]:"+cor[5]+"Please Input Just"+cor[4]+" [SHA256 HASH!]")
+				exit()
+		try:
+		   pwfile = open(wl, "r")
+		except:
+		      errorfile(wl)
+		try:
+		   banner()
+	           time.sleep(1.5)
+		   print(colors + "\n[+]:=================> CONFIG <=================:[+]\n"+cor[5])
+		   print("[#]:Time         : [ "+str(timenow)+" ]")
+		   print("[+]:SHA256 HASH  : [ "+str(pass_in)+" ]")
+		   print("[+]:Wordlist     : [ "+str(wl)+" ]")
+		   print(cor[1]+"\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		   time.sleep(1.5)
+		   print(cor[4] +"\n[$]"+cor[2]+" <<<<<<<<<"+cor[4]+" Brute Force Attack Start"+cor[2]+" >>>>>>>>>"+cor[4]+" [$]\n")
+		   rs = 1
+		   for passwd in pwfile:
+				fileSha224 = hashlib.sha256(passwd.strip()).hexdigest()
+				print(cor[3] + '[!]:Trying Password[%s] : '%(rs) +cor[0]+ str(passwd) + "\n")
+				rs +=1
+				if pass_in == fileSha224:
+					print(cor[1]+"\n[*]:"+cor[5]+"SHA256 CRACK!: Password Is: "+cor[1]+"==> "+cor[4]+str(passwd))
+					break
+		   else:
+			passnotfound(wl)
+
+	        except KeyboardInterrupt:
+				      exceptkey()
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+########################################################### END SHA256 HASH FUNCTION ##################################################################
+
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ######################################################## (END)[3] HASH SECTION ########################################################################
