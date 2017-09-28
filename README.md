@@ -1,4 +1,4 @@
-# BrtForTe,V1.0
+# BrtForTe,V1.2
 
 # A python Tool For Brute Force Attack On Emails and Server and Hash 
 
@@ -19,13 +19,6 @@
 3 > type this command: cd BrtForTe/
 
 4 > and type this command: chmod +x BrtForTe.py
-
-- Note: if your not install mechanize library 
-
-- you need to install mechanize library
-
-Using this command: pip install mechanize
-
 
 
 - download complete !
