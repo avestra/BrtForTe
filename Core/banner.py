@@ -104,7 +104,6 @@ _  /_/ /_  /   / /_ _  __/   / /_/ /  /   _  /   /  __/
 """
 
     banners = [banner0, banner1, banner2, banner3, banner4, banner5, banner6]
-    print banners[randint(0,5)]
-
+    print banners[randint(0,6)]
 
 

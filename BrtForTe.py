@@ -10,13 +10,9 @@ except:
       print("\n[!]:Some Modules is Not Found In your Python\n[*]Please Update your Python")
       exit()
 try:
-   import mechanize
-except:
-      print("\n[!]:The [ mechanize ilb ] Is Not Found!\n[*]Please Run This Command to install it [ pip install mechanize ]")
-      exit()
-try:
    from Core.banner import banner
    from Core.examples import examples
+   from Core import mechanize
    from Core import pxssh
    from Core.proxys import proxy
 except:
@@ -27,8 +23,15 @@ except:
 
 ###################################################### Choice Random user agent #######################################################################
 def useragent():
-  useragents = [('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
-  return random.choice(useragents)
+    useragents = [
+           'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.24 (KHTML, like Gecko) RockMelt/0.9.58.494 Chrome/11.0.696.71 Safari/534.24',
+           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36',
+           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.54 Safari/535.2',
+           'Opera/9.80 (J2ME/MIDP; Opera Mini/9.80 (S60; SymbOS; Opera Mobi/23.348; U; en) Presto/2.5.25 Version/10.54',
+           'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.12 Safari/535.11',
+           'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.6 (KHTML, like Gecko) Chrome/16.0.897.0 Safari/535.6',
+           'Mozilla/5.0 (X11; Linux x86_64; rv:17.0) Gecko/20121202 Firefox/17.0 Iceweasel/17.0.1']
+    return random.choice(useragents)
 
 useuser = useragent()
 useuser2 = useuser
@@ -98,42 +101,44 @@ def errorfile(x):
 	exit()
 #####################################################################################################################################################
 #-------------------------------------Tool version------------------------------------#
-ver = cor[1]+"[*]:"+cor[5]+"BrtForTe Version:"+cor[4]+" ["+cor[3]+"1.0"+cor[4]+"]"    #
+ver = cor[1]+"[*]:"+cor[5]+"BrtForTe Version:"+cor[4]+" ["+cor[3]+"1.2"+cor[4]+"]"    #
 #-------------------------------------------------------------------------------------#
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Make Tool Options @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-parse = optparse.OptionParser("""\nUsage: python ./BrtForTe.py [options]
+defaultbanner = colors + """________       _______________            ________      
+___  __ )________  /___  ____/_______________  __/____  
+__  __  |_  ___/  __/_  /_   _  __ \_  ___/_  /  _  _ \ 
+_  /_/ /_  /   / /_ _  __/   / /_/ /  /   _  /   /  __/ 
+/_____/ /_/    \__/ /_/      \____//_/    /_/    \___/
+						     V"""+cor[5]+"["+cor[4]+"1.2"+cor[5]+"]"
+parse = optparse.OptionParser(colors + defaultbanner+ """\nUsage: python ./BrtForTe.py [options]
 
 OPTIONS:
-------------------------------------------------------------------------------------------------------------------------
-EMAILS:                                                                                                                |
-														       |
-	-F <Target Email> -W <Wordlist>		::> This Option For Brute Force Attack On [ FaceBoock Account ]        |
-	   	  												       |
-	-I <Target User>  -L <Wordlist>         ::> This Option For Brute Force Attack On [ Instagram Account ]	       |
-														       |
-	-G <Target Email> -A <Wordlist>		::> This Option For Brute Force Attack On [ Gmail Account ]	       |
-														       |
-	-T <Target User>  -C <Wordlist>         ::> This Option For Brute Force Attack On [ Twitter Account ]	       |
-														       |
-	-p --use-proxy				::> This Option For Use Proxy with all emails options, 		       |
-					            For Bypass website Web Server Blocked the attack		       |
------------------------------------------------------------------------------------------------------------------------|
-SERVERS:													       |
-														       |
-	-S <serverIP> -U <Username> -D <Wordlist>         ::> This Option For Brute Force Attack On [ SSH SERVER ]     |
-														       |
-	-f <serverIP> -E <Username> -K <Wordlist>         ::> This Option For Brute Force Attack On [ FTP SERVER ]     |
------------------------------------------------------------------------------------------------------------------------|
-HASH:														       |
-	-X <MD5 HASH> -J <Wordlist>         ::> This Option For Brute Force Attack On[ MD5 HASH ]		       |
------------------------------------------------------------------------------------------------------------------------|
 
+[1]:EMAILS:
+	   -F <Target Email> -W <Wordlist>     ::> This Option For Brute Force Attack On [ FaceBoock Account ]
+
+	   -I <Target User>  -L <Wordlist>     ::> This Option For Brute Force Attack On [ Instagram Account ]
+
+	   -G <Target Email> -A <Wordlist>     ::> This Option For Brute Force Attack On [ Gmail Account ]
+
+	   -T <Target User>  -C <Wordlist>     ::> This Option For Brute Force Attack On [ Twitter Account ]
+
+	   -p --use-proxy		       ::> This Option For Use Proxy with all emails options,
+					           For Bypass website Web Server Blocked the attack
+---------------
+[2]:SERVER:
+	   -S <serverIP> -U <Username> -D <Wordlist>     ::> This Option For Brute Force Attack On [ SSH SERVER ]
+
+	   -f <serverIP> -E <Username> -K <Wordlist>     ::> This Option For Brute Force Attack On [ FTP SERVER ]
+---------------
+[3]:HASH:
+	   -X <MD5 HASH> -J <Wordlist>     ::> This Option For Brute Force Attack On[ MD5 HASH]
+
++-----------------------------------------+
 -u --update    ::> update BrtForTe Tool.
 -e --examples  ::> Show Tool Examples.
--v --version   ::> show tool version.
-""",version=ver)
+-v --version   ::> show tool version.""",version=ver)
 def Main():
 ###################################### Emails Brute Force Options ######################################
           grEmails = optparse.OptionGroup(parse,"EMAILS OPTIONS",
@@ -319,12 +324,14 @@ def Main():
 							    	 print(cor[3] + '[!]:Trying Password[%s] : '%(lo) +cor[0]+ str(password) + "\n")
 								 lo +=1
 							  except KeyboardInterrupt:
-									 exceptkey()
 									 os.system("rm Facebook-Log.txt")
+									 exceptkey()
+
 
 				 else:
-				     passnotfound(passw)
 				     os.system("rm Facebook-Log.txt")
+				     passnotfound(passw)
+
 
 		elif check2 == False:
 				    msgerrorconnect()
@@ -816,6 +823,7 @@ def Main():
 
 	        except KeyboardInterrupt:
 				      exceptkey()
+
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ########################################################### END MD5 HASH FUNCTION #####################################################################
 
@@ -826,8 +834,11 @@ def Main():
 	  else:
 	      print(parse.usage)
 
+
+
 if __name__=="__main__":
 	Main()
+
 
 ##############################################################
 ##################### 		     #########################
@@ -837,4 +848,3 @@ if __name__=="__main__":
 #This Tool by Oseid Aldary
 #Have a nice day :)
 #GoodBye
-
