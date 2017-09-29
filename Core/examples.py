@@ -47,4 +47,8 @@ HASH:
 ./BrtForTe.py -Z aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d -z /root/list.txt ::> this example [ Brute Force On [SHA1 HASH]
 ./BrtForTe.py -Q ea09ae9cc6768c50fcee903ed054556e5bfc8347907f12598aa24193 -q /root/list.txt ::> this example [ Brute Force On [SHA224 HASH]
 ./BrtForTe.py -X 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 -x /root/wl.txt ::> this example [ Brute Force On [SHA256 HASH]
+------------------
+WEB:
+------------------
+./BrtForTe.py -N www.google.com [ -n for  Custom links] or Default Links and [-a] if you like using proxy whit scan :)
 """)

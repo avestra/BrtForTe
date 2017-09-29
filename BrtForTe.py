@@ -6,6 +6,7 @@ try:
    import datetime,md5
    import threading
    from ftplib import FTP
+   from urllib2 import urlopen, Request, URLError, HTTPError,install_opener,build_opener,ProxyHandler
 except:
       print("\n[!]:Some Modules is Not Found In your Python\n[*]Please Update your Python")
       exit()
@@ -73,6 +74,7 @@ check4 = check3						     #
 check5 = check4						     #
 check6 = check5						     #
 check7 = check6						     #
+check8 = check7						     #
 ##############################################################
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ERRORS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -104,6 +106,7 @@ def errorfile(x):
 ver = cor[1]+"[*]:"+cor[5]+"BrtForTe Version:"+cor[4]+" ["+cor[3]+"1.2"+cor[4]+"]"    #
 #-------------------------------------------------------------------------------------#
 ve = "1.2"
+proxy2 = proxy()
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Make Tool Options @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 defaultbanner = colors + """________       _______________            ________      
 ___  __ )________  /___  ____/_______________  __/____  
@@ -136,12 +139,17 @@ OPTIONS:
 	   -Z <SHA1 HASH> -z <Wordlist>    ::> This Option For Brute Force Attack On[ SHA1 HASH]
 	   -Q <SHA224 HASH> -q <Wordlist>  ::> This Option For Brute Force Attack On[ SHA224 HASH]
 	   -X <SHA256 HASH> -x <Wordlist>  ::> This Option For Brute Force Attack On[ SHA256 HASH]
+---------------
+[4]:WEB:
+	 -N <website>     ::> This Option For Find WebSite [ Control Panel ]<!>[using Default Links File]>Core/LINKS.txt
+	 -n <links file>  ::> This Option For Input Custom links File with [ Find CP option ]
+	 -a --proxy       ::> This options For Using proxy whit [Find CP option]
 +-----------------------------------------+
 -u --update    ::> update BrtForTe Tool.
 -e --examples  ::> Show Tool Examples.
 -v --version   ::> show tool version.""",version=ver)
 def Main():
-###################################### Emails Brute Force Options ######################################
+######################################[1] Emails Brute Force Options ######################################
           grEmails = optparse.OptionGroup(parse,"EMAILS OPTIONS",
 						"BRUTE FORCE ATTACK ON ALL EMAILS!")
 #Facebook:
@@ -160,7 +168,7 @@ def Main():
 #Use Random proxy with Emails brute Froce
 	  grEmails.add_option("-p","--use-proxy",action='store_true',dest="proxy",default=False) 
 
-###################################### SERVER Brute Force Options ######################################
+######################################[2] SERVER Brute Force Options ######################################
 	  grServer = optparse.OptionGroup(parse,"\nSERVER OPTION",
 					       "BRUTE FORCE ATTACK ON SERVER!")
 #SSH SERVER:
@@ -176,7 +184,7 @@ def Main():
 
 
 
-###################################### Hash Brute Force Options ######################################
+######################################[3] Hash Brute Force Options ######################################
 	  grHash = optparse.OptionGroup(parse,"\nHASH OPTIONS",
 					     "Brute Force Attack On Hash")
 #MD5 HASH:
@@ -191,6 +199,17 @@ def Main():
 #SHA256 HASH:
 	  grHash.add_option("-X","--SHA256HASH",dest="sh256T",type="string")
 	  grHash.add_option("-x","--SHA256wordlist",dest="sh256W",type="string")
+
+
+
+######################################[4] WEB Brute Force Options #####################################
+	  grWeb = optparse.OptionGroup(parse,"\nWEB OPTIONS",
+					    "Brute Force Attack On Web")
+# Finder CP:
+	  grWeb.add_option("-N","--website",dest="website",type="string")
+	  grWeb.add_option("-n","--Links",dest="links",type="string")
+	  grWeb.add_option("-a","--proxy",action='store_true',dest="proxyweb",default=False)
+	 
 
 
 ###################################### Other Options You Can Use ######################################
@@ -211,8 +230,19 @@ def Main():
 	  parse.add_option_group(grEmails)
 	  parse.add_option_group(grServer)
 	  parse.add_option_group(grHash)
+	  parse.add_option_group(grWeb)
 	  parse.add_option_group(grOther)
 	  (options,args) = parse.parse_args()
+	  def checklinks():
+	    try:
+		if options.links !=None:
+			return True
+	    except:
+		  pass
+	    return False
+
+	  uselinks = checklinks()
+
 	  def checkproxy():
 	    try:
 	       if options.proxy:
@@ -222,6 +252,15 @@ def Main():
 	    return False
 	  proxys = checkproxy()
 
+	  def checkproxyWithWebSection():
+            try:
+		if options.proxyweb:
+		      return True
+	    except:
+		  pass
+	    return False
+
+	  webproxy = checkproxyWithWebSection()
 
 	  if options.ShowVersion:
 		print(ver)
@@ -471,7 +510,7 @@ def Main():
 				     def start(password):
 							global useuser3
                                                         br.addheaders =[("User-agent", useuser3)]
-    							br.open('https://www.gmail.com')
+    							br.open("https://www.gmail.com")
 							try:
     							   br.select_form(nr=0)
 							except:
@@ -962,6 +1001,137 @@ def Main():
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ######################################################## (END)[3] HASH SECTION ########################################################################
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#################################################### [4] SECTION BRUTFORCE WEB START ##################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+##############################################################(1)Find CP FUNCTION #####################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	  elif options.website !=None:
+		global check8
+		if check8 == True:
+		   target = options.website
+		   def checkwebsite():
+		     try:
+			if target[:7]=="http://":
+				host = socket.gethostbyname(target[7:])
+			elif target[:8]=="https://":
+                                host = socket.gethostbyname(target[8:])
+			else:
+			     host = socket.gethostbyname(target)
+
+		        conn = socket.create_connection((host, 80), 2)
+		        return True
+		     except:
+			   pass
+		     return False
+
+		   if checkwebsite() !=True:
+				print(cor[3]+"\n[!]:Error:404: Server [ "+cor[4]+target+cor[3]+" ] Not Found!.")
+				exit()
+
+		   if uselinks !=True:
+			 try:
+		            der = "Default File"
+			    name = "Core/LINKS.txt"
+		            links = open("Core/LINKS.txt", "r")
+		         except:
+		               print(cor[3]+"\n[!]:The "+cor[4]+"[ Core/LINKS.txt ]"+cor[3]+" Tool File Is Missing!!\n"+cor[2]+"[*]:"+cor[5]+"Please Update The Tool.")
+		               exit()
+		   elif uselinks ==True:
+                        try:
+			   der = "Custom File "
+			   lin = options.links
+			   name = lin
+			   links = open(lin, "r")
+			except:
+			      errorfile(lin)
+		   try:
+		      if webproxy == True:
+					 prostatus = cor[2]+"ON"+cor[5]
+					 global proxy2
+				         prox = proxy2
+		      else:
+		           prostatus = cor[4]+"OFF"+cor[5]
+			   prox = ""
+		      banner()
+	              time.sleep(1.5)
+		      print(colors + "\n[+]:=================> CONFIG <=================:[+]\n"+cor[5])
+		      print("[#]:Time         : [ "+str(timenow)+" ]")
+		      print("[+]:Website      : [ "+str(target)+" ]")
+		      print("[+]:"+der+" : [ "+name+ " ]")
+		      print("[@]:Proxy status : [ "+prox+" ["+prostatus+"]")
+		      print(cor[1]+"\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		      time.sleep(1.5)
+		      print(cor[4] +"\n[$]"+cor[2]+" <<<<<<<<<"+cor[4]+" Brute Force Attack Start"+cor[2]+" >>>>>>>>>"+cor[4]+" [$]\n")
+		      time.sleep(2)
+		      rs = 1
+		      rs2 = 1	
+		      while True:
+		             link = links.readline()
+			     if not link:
+					break
+
+			     if target[:7] == "http://":
+				 request_link = target+"/"+link
+
+			     elif target[:8] == "https://":
+			        request_link ="http://"+target[8:]+"/"+link
+
+			     else:
+			        request_link = "http://"+target+"/"+link
+
+			     print(cor[3] + '[!]:Trying Link[%s] : '%(rs2) +cor[0]+ str(request_link) + "\n")
+			     rs2 += 1
+
+			     REQUEST = Request(request_link)
+			     try:
+				 if webproxy == True:
+				      proxy = ProxyHandler({'http':prox})
+				      opener = build_opener(proxy)
+				      install_opener(opener)
+				      response = urlopen(REQUEST)
+				 else:
+				     response = urlopen(REQUEST)
+
+			     except HTTPError as e:
+						  continue
+
+			     except URLError as w:
+						 continue
+
+
+			     else:
+				 print(cor[1]+"\n[+]"+cor[2]+" CP"+cor[5]+"["+cor[0]+str(rs)+cor[5]+"]"+cor[4]+" Found!"+cor[1]+" ==> "+cor[2]+str(request_link))
+				 rs +=1
+				 ask = raw_input(cor[5]+"\n[?]:Do You Want Continue To Find Other Control Panel ? [Y:n]: "+cor[4])
+				 if ask =="n" or ask =="N":
+							  print("")
+							  exceptkey()
+				 else:
+				     pass
+				 print("")
+
+		   except KeyboardInterrupt:
+				      print("")
+				      exceptkey()
+
+
+		elif check8 == False:
+				    msgerrorconnect()
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+########################################################### END Find CP FUNCTION ######################################################################
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+######################################################## (END)[4] WEB SECTION #########################################################################
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	    
 
 	  else:
 	      print(parse.usage)
