@@ -1,6 +1,6 @@
 # BrtForTe,V1.2
 
-# A python Tool For Brute Force Attack On Emails and Server and Hash 
+# A python Tool For Brute Force Attack On Emails or servers or Hash and Web :)
 
 - This version is simple but in the next version the tool will be developed and will be able to do a lot of brute force attacks
 
