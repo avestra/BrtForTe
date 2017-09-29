@@ -6,7 +6,7 @@
 
 - Tool screenshot
 
-![](https://scontent.fjrs3-1.fna.fbcdn.net/v/t1.0-9/22046929_163936620855352_4005365533557551258_n.jpg?oh=0b788f9a13d1b9ed997e42bd8cd7b2aa&oe=5A518A1C)
+![](https://scontent.fjrs3-1.fna.fbcdn.net/v/t1.0-9/22089608_164323154150032_2914247773970819804_n.jpg?oh=79d7bc2959b87b0c557120966eeaf3b4&oe=5A4B74AD)
 
 # How You Install Tool:
 
