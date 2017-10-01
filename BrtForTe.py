@@ -140,7 +140,7 @@ OPTIONS:
 [4]:WEB:
 	 -N <website>     ::> This Option For Find WebSite [ Control Panel ]<!>[using Default Links File]>Core/LINKS.txt
 	 -n <links file>  ::> This Option For Input Custom links File with [ Find CP option ]
-	 -a --proxy       ::> This options For Using proxy whit [Find CP option]
+	 -a --proxy       ::> This options For Using proxy with [Find CP option]
 +-----------------------------------------+
 -u --update    ::> update BrtForTe Tool.
 -e --examples  ::> Show Tool Examples.
