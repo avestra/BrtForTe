@@ -106,7 +106,13 @@ def errorfile(x):
 ver = cor[1]+"[*]:"+cor[5]+"BrtForTe Version:"+cor[4]+" ["+cor[3]+"1.2"+cor[4]+"]"    #
 #-------------------------------------------------------------------------------------#
 ve = "1.2"
-proxy2 = proxy()
+proxy1 = proxy()
+proxy2 = proxy1
+proxy3 = proxy2
+proxy4 = proxy3
+proxy5 = proxy4
+proxy6 = proxy5
+
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Make Tool Options @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 defaultbanner = colors + """________       _______________            ________      
 ___  __ )________  /___  ____/_______________  __/____  
@@ -307,7 +313,7 @@ def Main():
 				       errorfile(passw)
 			         if proxys == True:
 					          prostatus = cor[2]+"ON"+cor[5]
-						  prox = proxy()
+						  prox = proxy1
 				 else:
 				     prostatus = cor[4]+"OFF"+cor[5]
 				     prox = ""
@@ -391,7 +397,7 @@ def Main():
 					   errorfile(pwd_file)
 			             if proxys == True:
 					              prostatus = cor[2]+"ON"+cor[5]
-						      prox = proxy()
+						      prox = proxy2
 				     else:
 				         prostatus = cor[4]+"OFF"+cor[5]
 					 prox = ""
@@ -478,7 +484,7 @@ def Main():
 					   errorfile(pwd_file)
 			             if proxys == True:
 					              prostatus = cor[2]+"ON"+cor[5]
-						      prox = proxy()
+						      prox = proxy3
 				     else:
 				         prostatus = cor[4]+"OFF"+cor[5]
 					 prox = ""
@@ -562,7 +568,7 @@ def Main():
 					   errorfile(pwd_file)
 			             if proxys == True:
 					              prostatus = cor[2]+"ON"+cor[5]
-						      prox = proxy()
+						      prox = proxy4
 				     else:
 				         prostatus = cor[4]+"OFF"+cor[5]
 					 prox = ""
@@ -951,8 +957,7 @@ def Main():
 		   try:
 		      if webproxy == True:
 					 prostatus = cor[2]+"ON"+cor[5]
-					 global proxy2
-				         prox = proxy2
+				         prox = proxy6
 		      else:
 		           prostatus = cor[4]+"OFF"+cor[5]
 			   prox = ""
