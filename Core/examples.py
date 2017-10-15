@@ -29,23 +29,28 @@ def examples():
 ----------------
 Emails:
 ----------------
-./BrtForTe.py -F oseid@gmail.com -W /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ FaceBoock Account ]]
-./BrtForTe.py -I joker11         -L /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ InstaGram Account ]]
-./BrtForTe.py -T joker11         -C /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ Twitter Account   ]]
-./BrtForTe.py -G oseid@gmail.com -A /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ Gmail Account     ]]
+./BrtForTe.py -F Oseid@gmail.com -W /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ FaceBoock Account ]]
+
+./BrtForTe.py -I Oseid -L /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ InstaGram Account ]]
+
+./BrtForTe.py -T Oseid -C /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ Twitter Account ]]
+
+./BrtForTe.py -G Oseid@gmail.com -A /usr/share/wordlists/rockyou.txt   ::> this example [ Brute Force On [ Gmail Account ]]
 
 -p --use-proxy ::>  You can use this option for use [ Proxy ] with all emails options for bypass server Blooked :)
 
 -----------------
 SERVER:
 -----------------
-./BrtForTe.py -S 192.168.1.2  -U root -D /root/wordlist.txt  ::> this example [ Brute Force On [ SSH-SERVER    ]]
-./BrtForTe.py -f 192.168.1.2  -E toor -K /root/wordlist.txt  ::> this example [ Brute Force On [ FTP-SERVER    ]]
+./BrtForTe.py -S 192.168.1.2  -U Oseid -D /root/wordlist.txt  ::> this example [ Brute Force On [ SSH-SERVER ]]
+./BrtForTe.py -f 192.168.1.2  -E Oseid -K /root/wordlist.txt  ::> this example [ Brute Force On [ FTP-SERVER ]]
 
 ------------------
 HASH:
 ------------------
 ./BrtForTe.py -M <multi hash> you can set any hash from this hashes>[ MD5,SHA1,SHA224,SHA256,SHA384,SHA512 ]
+
+for example:
 
 #MD5
 ./BrtForTe.py -M 5d41402abc4b2a76b9719d911017c592 -m /root/wordlist.txt

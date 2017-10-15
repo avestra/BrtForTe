@@ -1,14 +1,16 @@
 #!/usr/bin/python
 
+#	 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- WELCOME TO BRTFORTE TOOL (^-^) -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 ###############################################################[+>]: Cecking all tool need :[<+]#######################################################
 try:
    import optparse,socket,os,time,sys,subprocess,cookielib,random,hashlib
-   import datetime,md5
+   import datetime
    import threading
    from ftplib import FTP
    from urllib2 import urlopen, Request, URLError, HTTPError,install_opener,build_opener,ProxyHandler
 except:
-      print("\n[!]:Some Modules is Not Found In your Python\n[*]Please Update your Python")
+      print("\n[!]:Some Modules is Not Found In your Python\n[*]:Please Update your Python")
       exit()
 try:
    from Core.banner import banner
@@ -114,13 +116,16 @@ proxy5 = proxy4
 proxy6 = proxy5
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Make Tool Options @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-defaultbanner = colors + """________       _______________            ________      
+defaultbanner = colors + """\
+________       _______________            ________      
 ___  __ )________  /___  ____/_______________  __/____  
 __  __  |_  ___/  __/_  /_   _  __ \_  ___/_  /  _  _ \ 
 _  /_/ /_  /   / /_ _  __/   / /_/ /  /   _  /   /  __/ 
 /_____/ /_/    \__/ /_/      \____//_/    /_/    \___/
 						     V"""+cor[5]+"["+cor[4]+ve+cor[5]+"]"
-parse = optparse.OptionParser(colors + defaultbanner+ """\nUsage: python ./BrtForTe.py [options]
+parse = optparse.OptionParser(colors + defaultbanner+ """\
+
+Usage: python ./BrtForTe.py [options]
 
 OPTIONS:
 
@@ -186,7 +191,6 @@ def Main():
 	  grServer.add_option("-K","--FTwordlist",dest="ftpW",type="string")
 
 
-
 ######################################[3] Hash Brute Force Options ######################################
 	  grHash = optparse.OptionGroup(parse,"\nHASH OPTIONS",
 					     "Brute Force Attack On Hash")
@@ -201,7 +205,6 @@ def Main():
 	  grWeb.add_option("-N","--website",dest="website",type="string")
 	  grWeb.add_option("-n","--Links",dest="links",type="string")
 	  grWeb.add_option("-a","--proxy",action='store_true',dest="proxyweb",default=False)
-	 
 
 
 ###################################### Other Options You Can Use ######################################
@@ -675,6 +678,9 @@ def Main():
 	        except:
 		      errorfile(passf)
 		global check6
+		if host == "127.0.0.1":
+			check6 = True
+
 		if check6 == True:
 			         def checkport():
 		                   try:
@@ -736,7 +742,6 @@ def Main():
 					exceptkey()
 		elif check6 == False:
 				    servererror()
-
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ########################################################### END SSH FUNCTION ##########################################################################
 
@@ -751,6 +756,9 @@ def Main():
 		user = options.ftpU
 		wl = options.ftpW
 		global check7
+		if host == "127.0.0.1":
+			check7 = True
+
 		if check7 ==True:
 			def checkport():
 		 	  try:
@@ -795,7 +803,7 @@ def Main():
 					  password = line.strip('\r\n')
 					  print(cor[3] + '[!]:Trying Password[%s] : '%(rs) +cor[0]+ str(password) + "\n")
 					  rs += 1
-					  t = threading.Thread(target=ftp_brute(password,))
+					  t = threading.Thread(target=ftp_brute(password))
 					  t.start()
 			      		  time.sleep(0.2)
 			    else:
@@ -804,8 +812,7 @@ def Main():
 		        except KeyboardInterrupt:
 						exceptkey()
 		elif check7 == False:
-				    servererror()
-
+                                    servererror()
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ########################################################### END FTP FUNCTION ##########################################################################
 
@@ -847,7 +854,6 @@ def Main():
 			name = "SHA512"
 		else:
 		     print(cor[3]+"\n[!]:Error:"+cor[5]+"Please Enter Any Hash from this HASHS::>"+cor[1]+"[ "+cor[2]+"MD5, SHA1, SHA224,SHA256,SHA384,SHA512"+cor[1]+" ]")
-				
            	     exit()
 
 		try:
@@ -891,7 +897,6 @@ def Main():
 					else:
 					  print(cor[1]+"\n[*]:"+cor[5]+name+" CRACK!: Password Is: "+cor[1]+"==> "+cor[4]+str(passwd))
 					  break
-				
 		   else:
 			passnotfound(wl)
 
@@ -1039,7 +1044,7 @@ def Main():
 ######################################################## (END)[4] WEB SECTION #########################################################################
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	    
+
 
 	  else:
 	      print(parse.usage)
@@ -1054,7 +1059,7 @@ if __name__=="__main__":
 #####################   END OF TOOL  #########################
 #####################                #########################
 ##############################################################
-#This Tool by Oseid Aldary
+#This Tool by Ahmad Aldary
 #Have a nice day :)
 #GoodBye
 
