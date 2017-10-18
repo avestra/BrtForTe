@@ -2,6 +2,7 @@
 
 #	 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- WELCOME TO BRTFORTE TOOL (^-^) -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+
 ###############################################################[+>]: Cecking all tool need :[<+]#######################################################
 try:
    import optparse,socket,os,time,sys,subprocess,cookielib,random,hashlib
@@ -89,7 +90,11 @@ def passnotfound(x):
 	       exit()
 def serverblock(x):
 	  print(cor[3]+"\n[!]:"+cor[5]+"Your Blooked from "+cor[4]+x+cor[5]+" webserver!\n"+cor[2]+"[*]:"+cor[3]+"If Your "+cor[4]+"[ Internet ]"+cor[3]+ "Is Good try ["+cor[4]+" -p"+cor[3]+" ] For Use Random [Proxy] For Bypass Blooked :)\n[!]:If Your"+cor[4]+"[ Internet ]"+cor[3]+"Is Slow Please Wait 5-10 munites and try again :) ")
-	  os.system("service network-manager restart")
+	  try:
+	      os.system("service network-manager restart")
+	      exit()
+	  except:
+		pass
 	  exit()
 
 def servererror():
